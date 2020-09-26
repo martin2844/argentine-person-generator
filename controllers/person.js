@@ -1,7 +1,7 @@
 const csvToJson = require('convert-csv-to-json');
 const axios = require("axios");
 const logger = require("../utils/logger")(module);
-const generateRandomProfile = async () => {
+const generateRandomProfile = async (image) => {
 
         const capitalize = (s) => {
             return s.replace(
@@ -60,28 +60,43 @@ const generateRandomProfile = async () => {
         let randomCity = Math.floor(Math.random() * cities.municipios.length);
         let city =  cities.municipios[randomCity];
 
-
-        let randomURL = await axios.get('https://picsum.photos/200').then((response) => {
-        console.log("function triggered")
-        return response.request.res.responseUrl;
-        })
-        
-
-        return {
-            person: {
-                name: capitalize(FirstName),
-                lastName: capitalize(LastName),
-                job: job,
-                food: food,
-                location: {
-                    city: city.nombre,
-                    province: city.provincia.nombre,
-                    country: "Argentina",
-                },
-                picture: randomURL
-            },
-            time: (Date.now() - start)
+        let randomURL;
+        if(image){
+            randomURL = await axios.get('https://picsum.photos/200').then((response) => {
+                console.log("function triggered")
+                return response.request.res.responseUrl;
+                })
+                
         }
+      
+        if(image){
+            return {
+                    name: capitalize(FirstName),
+                    lastName: capitalize(LastName),
+                    job: job,
+                    food: food,
+                    location: {
+                        city: city.nombre,
+                        province: city.provincia.nombre,
+                        country: "Argentina",
+                    },
+                    picture: randomURL
+            }
+        } else {
+            return {
+                    name: capitalize(FirstName),
+                    lastName: capitalize(LastName),
+                    job: job,
+                    food: food,
+                    location: {
+                        city: city.nombre,
+                        province: city.provincia.nombre,
+                        country: "Argentina",
+                    },
+                    picture: randomURL
+            }
+        }
+      
         } catch (error) {
             logger.error(error);
             return error;

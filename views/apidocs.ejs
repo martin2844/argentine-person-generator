@@ -1,4 +1,113 @@
 <%- include('header'); -%>
+<style>
+.col-9 {
+    padding-top: 15px;
+}
+.tab-content {
+    min-height: 300px;
+}
+.nav-link {
+    margin: 5px 0;
+}
+.nav.flex-column {
+    height: calc(100vh - 60px);
+}
+
+.breadcrumb{
+    width: 200px;
+}
+
+.breadcrumb .badge {
+    padding: .4em;
+    margin-right: .8em;
+}
+
+td, th {
+    padding-right: 60px !important;
+}
+</style>
+
+
+    <div class="row">
+        <div class="col-3">
+          <div class="nav flex-column nav-pills p-3 bg-light" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Bienvenido</a>
+            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Endpoints</a>
+            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Datasets</a>
+          </div>
+        </div>
+        <div class="col-9">
+          <div class="tab-content p-3" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                    <div class="jumbotron jumbotron-fluid">
+                        <div class="container">
+                        <h1 class="display-4">Bienvenido!</h1>
+                        <p class="lead">La idea de <strong>dame1argentino</strong> es poder generar data aleatoria en formato JSON para que uses para tus proyectos</p>
+                        </div>
+                    </div>
+                    <h3>¿Qué tiene de diferente con otros generadores?</h3>
+                    <p>La mayor diferencia es que los datos usados son puramente basados en Argentina. Los nombres, las comidas, las ciudades son todas de Argentina</p>
+                    <p><strong>La información es aleatoria, y cualquier parecido con la realidad es pura coincidencia</strong></p>
+                    <h3>¿Cómo Arrancar?</h3>
+                    <p>Esto depende como necesitas la información.</p>
+                    <p>Si sólo necesitas copiar y pegar información para rellenar en herramientas gráficas, lo podes hacer desde la <a href="/">Home</a>, apretando en generá un argentino </p>
+                    <p>Si necesitas un JSON lo podes generar usando la API, para eso tenes varíos ENDPOINTS. Fijate en el menu a la izquierda </p>
+            </div>
+            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+            <h3>Generar argentinos</h3>
+            <p>Con un simple get request obtendremos 1 o más argentinos</p>
+            <div class="breadcrumb"><span class="badge badge-success">GET</span>/api/generate</li>
+            </div>
+            <h5>Con query strings podemos pasar opciones:</h5>
+            <table class="table table-borderless">
+                <thead>
+                  <tr>
+                    <th scope="col">Query</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Descripcion</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">number</th>
+                    <td>Integer</td>
+                    <td>Con está opcion podemos decirle a la api que nos devuelva más de una persona, hastá 100 por llamado. Con paciencia.<br><em>Por defecto es 1</em></td>
+                  
+                  </tr>
+                  <tr>
+                    <th scope="row">image</th>
+                    <td>bool</td>
+                    <td>Con está opcion podemos elegir no recibir una foto por cada persona, sin foto la generación de personas es mucho más rapida. Con foto aproximadamente, entre .5 a 1 segundo, sin foto milesimas.<br><em>Por defecto es true</em></em></td>
+                    
+                  </tr>
+                </tbody>
+              </table>
+
+
+            </div>
+            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                <h3>¿De dónde sale la data?</h3>
+                <p>Hoy en Google podemos encontrar de todo. Los nombres y apellidos están recopilados de distintos DataSets facilitados por las autoridades gubernamentales de varias provincias. 
+                    Son nombres de inspectores y funcionarios públicos. También están mezclados datos de los registros civiles sobre ciudadanos comunes. <strong>Está todo mezclado</strong>               </p>
+                    <h3>La data usada para la api está disponible en los siguientes archivos:</h3>
+                    <ul>
+                        <li><a href="./public/nombres.csv" target="_blank">nombres.csv</a></li>
+                        <li><a href="./public/profesiones.csv" target="_blank">profesiones.csv</a></li>
+                        <li><a href="./public/comidas.csv" target="_blank">comidas.csv</a></li>
+                        <li><a href="./public/municipios.json" target="_blank">municipios.json</a></li>
+                        
+                      
+                       
+                    </ul>
+               
+                </div>
+                <h3>¿Y el código?</h3>
+                <p>Y buen, el código está disponible en github obviamente:</p>
+                <p><a href="https://github.com/martin2844/argentine-person-generator">Argentine-Person-Generator</a></p>
+          </div>
+        </div>
+      </div>
+
 
 
 <%- include('footer'); -%>

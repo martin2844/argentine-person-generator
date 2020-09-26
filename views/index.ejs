@@ -19,6 +19,7 @@
   }
   .profile-pic {
     width: 95px;
+    height: 95px;
     border-radius: 50%;
     margin: 0 auto;
     display: block;
@@ -49,12 +50,15 @@
             <div id="top-color" class="top-color">
 
             </div>
-            <img id="pic" class="profile-pic" src="https://i.picsum.photos/id/335/200/200.jpg?hmac=CS4kiSEelfhSQQtW7j6SFUV2ZlTmUV1vaX2iZKnbx7c" />
+            <img loading="lazy" id="pic" class="profile-pic" src="https://i.picsum.photos/id/335/200/200.jpg?hmac=CS4kiSEelfhSQQtW7j6SFUV2ZlTmUV1vaX2iZKnbx7c" />
             <div class="lower-card">
               <h5 id="name" class="card-title">Nombre y Apellido</h5>
               <h6 id="job" class="card-subtitle mb-2 text-muted">Profesion</h6>
               <p id="city" class="card-text">
                 De: Rosario, Santafe
+              </p>
+              <p id="food" class="card-text">
+                Comida: Waffles
               </p>
               <a href="#" class="card-link">Card link</a>
               <a href="#" class="card-link">Another link</a>
@@ -82,6 +86,7 @@
     
     let nameNode = document.getElementById("name");
     let jobNode = document.getElementById("job");
+    let foodNode = document.getElementById("food");
     let cityNode = document.getElementById("city");
     let picNode = document.getElementById("pic");
     let topColor = document.getElementById("top-color")
@@ -103,11 +108,12 @@
     ]
     let randomColor = colors[Math.floor(Math.random() * colors.length)];
     try {
-      let newPerson = await axios.get("/api/generate");
-      picNode.src = newPerson.data.person.picture;
-      nameNode.innerText = newPerson.data.person.name + " " + newPerson.data.person.lastName;
-      jobNode.innerText = newPerson.data.person.job;
-      cityNode.innerText = "De: " + newPerson.data.person.location.city + ", " + newPerson.data.person.location.province
+      let newPerson = await axios.get("/api/generate?image=true");
+      picNode.src = newPerson.data.picture;
+      nameNode.innerText = newPerson.data.name + " " + newPerson.data.lastName;
+      jobNode.innerText = newPerson.data.job;
+      cityNode.innerText = "De: " + newPerson.data.location.city + ", " + newPerson.data.location.province;
+      foodNode.innerText = "Comida: " + newPerson.data.food;
       topColor.style.background = "#" + randomColor;
       card.classList.remove("animate__fadeOut");
         if(card.style.display === "none" || card.style.display === ""){

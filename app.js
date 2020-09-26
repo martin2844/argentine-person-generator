@@ -11,9 +11,49 @@ app.set("view engine", "ejs");
 
 
 app.get("/api/generate", async (req, res) => {
-    let gen = await person();
-    console.log(gen);
-    res.send(JSON.stringify(gen));
+    let {amount, image} = req.query;
+    amount = parseInt(amount);
+    if(amount === undefined || Number.isNaN(amount)){
+        try {
+            if(image) {
+                let gen = await person(image);
+                res.send(JSON.stringify(gen));
+            } else {
+                let gen = await person();
+                res.send(JSON.stringify(gen));
+            }
+         
+        } catch (error) {
+            res.send(error);
+        }
+      
+    } else {
+        try {
+            if(amount > 100) {
+                amount = 100;
+            }
+            let promises = [];
+            if(image) {
+                for (let i = 0; i < amount; i++) {
+                    let newPerson = await person(image);
+                    promises.push(newPerson);
+                }
+            } else {
+                for (let i = 0; i < amount; i++) {
+                    let newPerson = await person();
+                    promises.push(newPerson);
+                }
+            }
+ 
+            return await Promise.all(promises).then(() => {
+                res.send(promises);
+            });
+        } catch (error) {
+            
+        }
+    }
+ 
+ 
 })
 
 app.get("/", async (req, res) => {
@@ -25,7 +65,7 @@ app.get("/docs", async (req, res) => {
 })
 
 app.get("/about", async (req, res) => {
-    res.render('apidocs', {title: "Generador de Personas - About"});
+    res.render('about', {title: "Generador de Personas - About"});
 })
 
 const PORT = process.env.PORT || 9000;
