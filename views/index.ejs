@@ -1,11 +1,136 @@
 <%- include('header'); -%>
+<style>
+  .flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-<div class="jumbotron">
-    <h1 class="display-4">Hello, world!</h1>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-  </div>
+  .top-color {
+    background-color: #FFDFD3;
+    width: 100%;
+    height: 125px;
+  }
+  .card-body {
+    padding: 0;
+  }
+  .lower-card {
+    padding: 1.25rem;
+  }
+  .profile-pic {
+    width: 95px;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: block;
+    margin: -47.5px auto 0;
+    border: solid white 4px;
+  }
+  #card {
+    display: none;
+  }
+
+</style>
+<section class="first bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="jumbotron">
+          <h1 class="display-4">Hola, argentino!</h1>
+          <p class="lead">Esta aplicación es un simple generador de perfiles, argentinos</p>
+          <hr class="my-4">
+          <p>Está basado en información verdadera recopilada de distintas fuentes públicas! </p>
+          <p style="font-weight: bold;">Toda la información es aleatoria</p>
+          <a class="btn btn-primary btn-lg" role="button" onclick="genArgentino()">Generá un argentino</a>
+        </div>
+      </div>
+      <div class="col-md-6 flex-center">
+        <div id="card" class="card animate__animated" style="width: 18rem;">
+          <div class="card-body">
+            <div id="top-color" class="top-color">
+
+            </div>
+            <img id="pic" class="profile-pic" src="https://i.picsum.photos/id/335/200/200.jpg?hmac=CS4kiSEelfhSQQtW7j6SFUV2ZlTmUV1vaX2iZKnbx7c" />
+            <div class="lower-card">
+              <h5 id="name" class="card-title">Nombre y Apellido</h5>
+              <h6 id="job" class="card-subtitle mb-2 text-muted">Profesion</h6>
+              <p id="city" class="card-text">
+                De: Rosario, Santafe
+              </p>
+              <a href="#" class="card-link">Card link</a>
+              <a href="#" class="card-link">Another link</a>
+            </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+<script src="./public/axios.min.js"></script>
+<script>
+  let initialRun = true;
+  const genArgentino = async () => {
+    console.log("clicked")
+    let card = document.getElementById("card");
+    if(initialRun === true) {
+      initialRun = false;
+      
+    } else {
+      console.log(card);
+      card.classList.add("animate__fadeOut");
+    }
+    
+    let nameNode = document.getElementById("name");
+    let jobNode = document.getElementById("job");
+    let cityNode = document.getElementById("city");
+    let picNode = document.getElementById("pic");
+    let topColor = document.getElementById("top-color")
+    let colors = [
+      "FFDFD3",
+      "FEC8D8",
+      "FFFFD8",
+      "B5EAD7",
+      "C7CEEA",
+      "E0FEFE",
+      "FFFFD8",
+      "FF9AA2",
+      "AFC7D0",
+      "95B4CC",
+      "799FCB",
+      "EEF1E6",
+      "FEC9C9",
+      "F9665E"
+    ]
+    let randomColor = colors[Math.floor(Math.random() * colors.length)];
+    try {
+      let newPerson = await axios.get("/api/generate");
+      picNode.src = newPerson.data.person.picture;
+      nameNode.innerText = newPerson.data.person.name + " " + newPerson.data.person.lastName;
+      jobNode.innerText = newPerson.data.person.job;
+      cityNode.innerText = "De: " + newPerson.data.person.location.city + ", " + newPerson.data.person.location.province
+      topColor.style.background = "#" + randomColor;
+      card.classList.remove("animate__fadeOut");
+        if(card.style.display === "none" || card.style.display === ""){
+          setTimeout(() => {
+            card.style.display = "block";
+          }, 200);
+         
+        }
+      
+  
+      card.classList.add("animate__fadeIn");
+    } catch (error) {
+      console.error(error);
+    }
+
+    
+
+
+
+  }
+
+  genArgentino();
+
+</script>
 
 <%- include('footer'); -%>

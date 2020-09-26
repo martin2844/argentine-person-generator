@@ -4,9 +4,12 @@ const logger = require("../utils/logger")(module);
 const generateRandomProfile = async () => {
 
         const capitalize = (s) => {
-            if (typeof s !== 'string') return ''
-            let newString = s.toLowerCase();
-            return newString.charAt(0).toUpperCase() + s.slice(1)
+            return s.replace(
+                /\w\S*/g,
+                function(s) {
+                    return s.charAt(0).toUpperCase() + s.substr(1).toLowerCase();
+                }
+            );
         }
 
         try {
@@ -20,6 +23,7 @@ const generateRandomProfile = async () => {
         let namesJSON = csvToJson.fieldDelimiter(',').getJsonFromCsv("./public/nombres.csv");
         let jobsJSON = csvToJson.fieldDelimiter(",").getJsonFromCsv("./public/profesiones.csv");
         let foodsJSON = csvToJson.fieldDelimiter(",").getJsonFromCsv("./public/comidas.csv");
+        let cities = require("../public/municipios.json");
         //Actually loop over and push to arrays
         for(let i=0; i<namesJSON.length;i++){
             names.push(namesJSON[i]);
@@ -52,7 +56,12 @@ const generateRandomProfile = async () => {
         let randomFoodIndex = Math.floor(Math.random() * foodsJSON.length);
         let food = foods[randomFoodIndex].Comidas;
 
-        let randomURL = await axios.get('https://source.unsplash.com/random/150x150').then((response) => {
+        //City index
+        let randomCity = Math.floor(Math.random() * cities.municipios.length);
+        let city =  cities.municipios[randomCity];
+
+
+        let randomURL = await axios.get('https://picsum.photos/200').then((response) => {
         console.log("function triggered")
         return response.request.res.responseUrl;
         })
@@ -64,7 +73,12 @@ const generateRandomProfile = async () => {
                 lastName: capitalize(LastName),
                 job: job,
                 food: food,
-                picture: randomURL || "https://images.unsplash.com/photo-1599619586332-f85a328a9e13?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=150&ixlib=rb-1.2.1&q=80&w=150"
+                location: {
+                    city: city.nombre,
+                    province: city.provincia.nombre,
+                    country: "Argentina",
+                },
+                picture: randomURL
             },
             time: (Date.now() - start)
         }
