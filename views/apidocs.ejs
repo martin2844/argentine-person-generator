@@ -26,7 +26,18 @@ td, th {
     padding-right: 60px !important;
 }
 </style>
-
+    <script>
+      let home = document.getElementById("home");
+      let about = document.getElementById("about");
+      let docs = document.getElementById("docs");
+      if(home.classList[1] === "active") {
+        home.classList.remove("active");
+      }
+      if(about.classList[1] === "active") {
+        about.classList.remove("active");
+      }
+      docs.classList.add("active");
+    </script>
 
     <div class="row">
         <div class="col-3">
@@ -99,11 +110,12 @@ td, th {
                       
                        
                     </ul>
+                    <h3>¿Y el código?</h3>
+                    <p>Y buen, el código está disponible en github obviamente:</p>
+                    <p><a href="https://github.com/martin2844/argentine-person-generator">Argentine-Person-Generator</a></p>
                
                 </div>
-                <h3>¿Y el código?</h3>
-                <p>Y buen, el código está disponible en github obviamente:</p>
-                <p><a href="https://github.com/martin2844/argentine-person-generator">Argentine-Person-Generator</a></p>
+               
           </div>
         </div>
       </div>

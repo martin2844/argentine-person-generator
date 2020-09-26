@@ -13,8 +13,6 @@ const generateRandomProfile = async (image) => {
         }
 
         try {
-            
-        const start = Date.now();
         //First create empty arrays to store our individual objects
         let names = [];
         let jobs = [];
@@ -42,7 +40,6 @@ const generateRandomProfile = async (image) => {
         //If we get an empty Sirname, choose another one
         while(LastName.length === 0) {
             LastName = names[Math.floor(Math.random() * namesJSON.length)].Apellido;
-            console.log("while")
         }
         //Job Index
         let randomJobIndex = Math.floor(Math.random() * jobsJSON.length);
@@ -50,7 +47,6 @@ const generateRandomProfile = async (image) => {
         
         while(job.length <= 3) {
             job = jobs[Math.floor(Math.random() * 551)].Profesion;
-            console.log("while")
         }
         //Food indexes
         let randomFoodIndex = Math.floor(Math.random() * foodsJSON.length);
@@ -63,10 +59,8 @@ const generateRandomProfile = async (image) => {
         let randomURL;
         if(image){
             randomURL = await axios.get('https://picsum.photos/200').then((response) => {
-                console.log("function triggered")
                 return response.request.res.responseUrl;
                 })
-                
         }
       
         if(image){

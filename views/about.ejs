@@ -1,5 +1,53 @@
 <%- include('header'); -%>
+<script>
+    let home = document.getElementById("home");
+    let about = document.getElementById("about");
+    let docs = document.getElementById("docs");
+    if(home.classList[1] === "active") {
+      home.classList.remove("active");
+    }
+    if(docs.classList[1] === "active") {
+      docs.classList.remove("active");
+    }
+    about.classList.add("active");
+  </script>
+<div class="container-fluid bg-light">
+    <div class="container-md">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">About</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Contacto</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="pills-contact-tab" target="_blank" href="https://github.com/martin2844" aria-selected="false">Github</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <h4>¿Qué es esto?</h4>
+                <p>Un simple generador de información aleatoria que resembla datos personales. Está basada en información Argentina</p>
+                <h4>¿Por qué y para qué?</h4>
+                <p>¿Por qué no? Tenía ganas de crear una aplicación rápida para generar data personal para popular tarjetas.</p>
+                <p>Muchas veces necesitamos información en formato de JSON para llenar HTML y decidí crear mi propia API para poder tener un poco más de control sobre el tipo de información.
+                Además fue para armar algo serio a partir de un chascarrillo. ¿Te imaginas una api que genere personalidades aleatorias pero con rasgos argentinos?    
+                </p>
+                <h4>¿Cómo?</h4>
+                <p>La idea es que también sirva un poco para mostrar mi trabajo.</p>
+                <p>La api esta armada sobre Express y NodeJS. El front usa un lenguaje de templating, EJS. Pero es básicamente HTML con Javacsript.</p>
+                <p>En el código vas a ver un server minimalista en express, una arquitectura del tipo MVC, y un front básico pero eficiente usando Bootstrap 4.5, animatecss para las animaciones y axios para las llamadas del home.</p>
+                <p>Planeo deployar en una VPS de cloud compute que salga gratis.</p>
+            </div>
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
 
+
+            </div>
+          </div>
+    
+    </div>
+
+</div>
 
 
 <%- include('footer'); -%>
