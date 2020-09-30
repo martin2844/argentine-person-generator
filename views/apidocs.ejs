@@ -25,6 +25,31 @@
 td, th {
     padding-right: 60px !important;
 }
+@media (max-width: 600px) {
+  /* .nav.flex-column.nav-pills {
+      display: flex;
+      flex-direction: row !important;
+  } */
+  .nav.flex-column.nav-pills {
+    flex-direction: row !important;
+    height: 75px;
+  }
+  .nav-pills .nav-link {
+    width: 33%;
+  }
+
+  td, th {
+    padding-right: unset !important;
+}
+.row {
+  margin-right: unset;
+    margin-left: unset;
+}
+.col-sm-3.nopadd {
+  padding-right: unset;
+  padding-left: unset;
+}
+}
 </style>
     <script>
       let home = document.getElementById("home");
@@ -40,14 +65,14 @@ td, th {
     </script>
 
     <div class="row">
-        <div class="col-3">
+        <div class="col-sm-3 nopadd">
           <div class="nav flex-column nav-pills p-3 bg-light" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Bienvenido</a>
             <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Endpoints</a>
             <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Datasets</a>
           </div>
         </div>
-        <div class="col-9">
+        <div class="col-sm-9">
           <div class="tab-content p-3" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                     <div class="jumbotron jumbotron-fluid">
